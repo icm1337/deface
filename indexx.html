@@ -6,88 +6,77 @@
     <title>Rabobank Login</title>
     <style>
         body {
-            background-color: #111;
-            color: #fff;
             font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
+            margin: 0;
         }
         .container {
-            width: 90%;
-            max-width: 400px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
+            width: 350px;
         }
-        .login-header {
-            font-size: 24px;
+        h2 {
             margin-bottom: 20px;
         }
-        .input-field {
+        input, button {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: none;
             border-radius: 5px;
-            background: #222;
-            color: #fff;
-        }
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            margin-bottom: 10px;
-        }
-        .checkbox-container input {
-            margin-right: 10px;
-        }
-        .login-btn {
-            width: 100%;
-            padding: 12px;
             border: none;
-            border-radius: 5px;
-            background: #444;
-            color: #aaa;
             font-size: 16px;
+        }
+        input {
+            background-color: #333;
+            color: white;
+        }
+        button {
+            background-color: #444;
+            color: gray;
             cursor: not-allowed;
         }
-        .login-options {
-            margin-top: 20px;
-        }
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ff7700;
+        .qr-image {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 5px;
-            background: transparent;
-            color: #ff7700;
-            font-size: 16px;
+        }
+        .login-options button {
+            background-color: transparent;
+            border: 1px solid #555;
+            color: white;
             cursor: pointer;
         }
         .help-link {
-            color: #3da9fc;
+            color: #4a90e2;
             text-decoration: none;
+            display: block;
             margin-top: 10px;
-            display: inline-block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="login-header">Login</div>
-        <input type="text" class="input-field" placeholder="Account number">
-        <input type="text" class="input-field" placeholder="Card number">
-        <div class="checkbox-container">
-            <input type="checkbox" id="remember">
-            <label for="remember">Remember</label>
-        </div>
-        <button class="login-btn" disabled>Login</button>
+        <h2>Login</h2>
+        <input type="text" placeholder="Account number">
+        <input type="text" placeholder="Card number">
+        <div class="qr-image">QR Code</div>
+        <input type="text" placeholder="Login code">
+        <button disabled>Login</button>
         <div class="login-options">
-            <button class="option-btn">Login using a QR code and the Rabo App</button>
-            <button class="option-btn">Login using the Random Reader Comfort</button>
+            <button>Login using a QR code and the Rabo App</button>
+            <button>Login using the Random Reader Comfort</button>
         </div>
         <a href="#" class="help-link">Help with logging in</a>
     </div>
