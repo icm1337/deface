@@ -1,1 +1,95 @@
-f
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabobank Login</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .login-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #222;
+            color: #fff;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            margin-bottom: 10px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #444;
+            color: #aaa;
+            font-size: 16px;
+            cursor: not-allowed;
+        }
+        .login-options {
+            margin-top: 20px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ff7700;
+            border-radius: 5px;
+            background: transparent;
+            color: #ff7700;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .help-link {
+            color: #3da9fc;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-header">Login</div>
+        <input type="text" class="input-field" placeholder="Account number">
+        <input type="text" class="input-field" placeholder="Card number">
+        <div class="checkbox-container">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember</label>
+        </div>
+        <button class="login-btn" disabled>Login</button>
+        <div class="login-options">
+            <button class="option-btn">Login using a QR code and the Rabo App</button>
+            <button class="option-btn">Login using the Random Reader Comfort</button>
+        </div>
+        <a href="#" class="help-link">Help with logging in</a>
+    </div>
+</body>
+</html>
