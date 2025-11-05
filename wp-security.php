@@ -194,6 +194,8 @@ if (isset($_GET['download'])) {
         exit;
     }
 }
+
+// Unzip file
 if (isset($_GET['unzip'])) {
     $file_path = $current_dir . DIRECTORY_SEPARATOR . $_GET['unzip'];
     if (file_exists($file_path) && is_file($file_path) && strtolower(pathinfo($file_path, PATHINFO_EXTENSION)) === 'zip') {
@@ -277,10 +279,7 @@ function breadcrumbLinks($path) {
     return $links;
 }
 
-?>
-
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
