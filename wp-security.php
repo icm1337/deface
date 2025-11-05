@@ -285,49 +285,347 @@ function breadcrumbLinks($path) {
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>File Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-    * { box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f5f5f5; color:#333; }
-    .container { max-width:1200px; margin:auto; background:#fff; padding:20px; border-radius:5px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    h1 { margin-top:0; color:#444; }
-    .breadcrumb { padding:10px 0; margin-bottom:20px; border-bottom:1px solid #eee; font-size: 14px;}
-    .breadcrumb a { color:#007bff; text-decoration:none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .message { padding:10px; margin-bottom:20px; border-radius:4px; }
-    .success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-    .error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-    table { width:100%; border-collapse: collapse; margin-bottom: 20px;}
-    th, td { padding:12px 15px; text-align:left; border-bottom:1px solid #ddd; vertical-align: middle; }
-    th { background:#f8f9fa; cursor:pointer; user-select:none; }
-    th:hover { background:#e9ecef; }
-    tr:hover { background:#f5f5f5; }
-    .actions a { margin-right: 10px; color:#007bff; text-decoration:none; font-size: 14px;}
-    .actions a:hover { text-decoration: underline; }
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display:block; margin-bottom:5px; font-weight:bold; }
-    .form-group input, .form-group textarea { width: 100%; padding:8px; border:1px solid #ddd; border-radius:4px; font-family: monospace; font-size: 14px;}
-    .form-group textarea { min-height: 200px; font-family: monospace; }
-    button, .btn { background:#007bff; color:#fff; border:none; padding:8px 15px; border-radius:4px; cursor:pointer; text-decoration:none; display:inline-block; font-size: 14px;}
-    button:hover, .btn:hover { background:#0069d9; }
-    .btn-danger { background:#dc3545; }
-    .btn-danger:hover { background:#c82333; }
-    .btn-success { background:#28a745; }
-    .btn-success:hover { background:#218838; }
-    .upload-methods { margin-bottom: 20px; }
-    .tab-content { display:none; padding:15px; background:#f8f9fa; border-radius: 0 0 5px 5px; margin-bottom:20px; }
-    .tab-content.active { display:block; }
-    .tab-links { display:flex; border-bottom:1px solid #ddd; margin-bottom: 10px; }
-    .tab-link { padding:10px 15px; cursor:pointer; background:#f1f1f1; border:none; margin-right:5px; border-radius: 4px 4px 0 0; font-weight: 600; font-size: 14px; user-select:none;}
-    .tab-link.active { background:#f8f9fa; border-bottom: 2px solid #007bff; color:#007bff;}
-    .tab-link:hover:not(.active) { background:#ddd; }
-    @media (max-width: 768px) {
-        th, td { padding:8px 10px; font-size: 12px;}
-        .actions a { display:block; margin-bottom:5px; font-size: 12px;}
-        .tab-links { flex-wrap: wrap; }
-        .tab-link { flex: 1 1 45%; margin-bottom: 5px; text-align: center;}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #1a202c;
     }
-    .perm-ok { color: blue; font-weight: 700; }
-    .perm-no { color: red; font-weight: 700; }
+    .container { 
+        max-width: 1400px; 
+        margin: auto; 
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        overflow: hidden;
+    }
+    .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+    .header h1 { 
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+    }
+    .header-subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+        font-weight: 400;
+    }
+    .content-wrapper {
+        padding: 30px 40px;
+    }
+    .breadcrumb { 
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        background: #f7fafc;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+    }
+    .breadcrumb a { 
+        color: #667eea;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .breadcrumb a:hover { 
+        color: #764ba2;
+    }
+    .message { 
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .message::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+    .success { 
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .success::before {
+        background: #28a745;
+    }
+    .error { 
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    .error::before {
+        background: #dc3545;
+    }
+    
+    .upload-methods {
+        margin-bottom: 24px;
+    }
+    .tab-links { 
+        display: flex;
+        gap: 8px;
+        border-bottom: 2px solid #e2e8f0;
+        margin-bottom: 0;
+        flex-wrap: wrap;
+    }
+    .tab-link { 
+        padding: 12px 24px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        font-weight: 600;
+        font-size: 14px;
+        color: #718096;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+        position: relative;
+        top: 2px;
+    }
+    .tab-link:hover:not(.active) { 
+        color: #4a5568;
+        background: #f7fafc;
+    }
+    .tab-link.active { 
+        color: #667eea;
+        border-bottom-color: #667eea;
+    }
+    
+    .tab-content { 
+        display: none;
+        padding: 24px;
+        background: #f7fafc;
+        border-radius: 0 0 10px 10px;
+        margin-bottom: 24px;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+    }
+    .tab-content.active { 
+        display: block;
+    }
+    .tab-content form {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .tab-content input[type="file"],
+    .tab-content input[type="text"] {
+        flex: 1;
+        min-width: 250px;
+        padding: 10px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: all 0.2s;
+    }
+    .tab-content input[type="file"]:focus,
+    .tab-content input[type="text"]:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    button, .btn { 
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    button:hover, .btn:hover { 
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    button:active, .btn:active {
+        transform: translateY(0);
+    }
+    
+    .btn-danger { 
+        background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+        box-shadow: 0 2px 8px rgba(245, 101, 101, 0.3);
+    }
+    .btn-danger:hover { 
+        box-shadow: 0 4px 12px rgba(245, 101, 101, 0.4);
+    }
+    .btn-success { 
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+    }
+    .btn-success:hover { 
+        box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+    }
+    .btn-secondary {
+        background: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+        box-shadow: 0 2px 8px rgba(113, 128, 150, 0.3);
+    }
+    .btn-secondary:hover {
+        box-shadow: 0 4px 12px rgba(113, 128, 150, 0.4);
+    }
+    
+    .table-wrapper {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 24px;
+    }
+    table { 
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td { 
+        padding: 16px 20px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+    th { 
+        background: #f7fafc;
+        font-weight: 700;
+        color: #2d3748;
+        cursor: pointer;
+        user-select: none;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    th:hover { 
+        background: #edf2f7;
+    }
+    tr:last-child td {
+        border-bottom: none;
+    }
+    tbody tr {
+        transition: background 0.2s;
+    }
+    tbody tr:hover { 
+        background: #f7fafc;
+    }
+    tbody td:first-child {
+        font-weight: 500;
+    }
+    .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .actions a { 
+        color: #667eea;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: color 0.2s;
+        white-space: nowrap;
+    }
+    .actions a:hover { 
+        color: #764ba2;
+    }
+    .actions a.btn-danger {
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+    }
+    
+    .perm-ok { 
+        color: #38a169;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+    }
+    .perm-no { 
+        color: #e53e3e;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+    }
+    
+    .edit-section {
+        margin-top: 32px;
+        padding-top: 32px;
+        border-top: 2px solid #e2e8f0;
+    }
+    .edit-section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #2d3748;
+    }
+    .edit-section form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .CodeMirror {
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: 'Courier New', Consolas, monospace;
+    }
+    .CodeMirror-focused {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .form-actions {
+        display: flex;
+        gap: 12px;
+    }
+    
+    @media (max-width: 768px) {
+        body { padding: 10px; }
+        .header { padding: 20px 24px; }
+        .header h1 { font-size: 22px; }
+        .content-wrapper { padding: 20px 24px; }
+        th, td { 
+            padding: 12px 16px;
+            font-size: 13px;
+        }
+        .actions { 
+            flex-direction: column;
+            gap: 8px;
+        }
+        .actions a { 
+            font-size: 12px;
+        }
+        .tab-link { 
+            flex: 1 1 45%;
+            padding: 10px 16px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .tab-content { padding: 16px; }
+        .tab-content form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .tab-content input[type="file"],
+        .tab-content input[type="text"] {
+            min-width: 100%;
+        }
+    }
 </style>
 
 <!-- CodeMirror -->
@@ -345,96 +643,108 @@ function breadcrumbLinks($path) {
 </head>
 <body>
 <div class="container">
-    <h1>File Manager</h1>
-    
-    <div class="breadcrumb" style="font-size:14px;">
-        <a href="?dir=<?= urlencode(DIRECTORY_SEPARATOR) ?>">Root</a> /
-        <?php 
-        $crumbs = breadcrumbLinks($current_dir);
-        foreach ($crumbs as $i => $crumb) {
-            $is_last = ($i === count($crumbs) -1);
-            echo '<a href="?dir=' . urlencode($crumb['path']) . '">' . htmlspecialchars($crumb['name']) . '</a>';
-            if (!$is_last) echo ' / ';
-        }
-        ?>
-    </div>
-
-    <?php if ($message): ?>
-        <div class="message <?= htmlspecialchars($message_type) ?>"><?= htmlspecialchars($message) ?></div>
-    <?php endif; ?>
-    
-    <div class="upload-methods">
-        <button onclick="toggleTab('upload1')" class="tab-link active" id="tabupload1">Upload File</button>
-        <button onclick="toggleTab('upload2')" class="tab-link" id="tabupload2">Upload Multiple</button>
-        <button onclick="toggleTab('upload3')" class="tab-link" id="tabupload3">From URL</button>
-        <button onclick="toggleTab('upload4')" class="tab-link" id="tabupload4">Create Folder</button>
+    <div class="header">
+        <h1>📁 File Manager</h1>
+        <div class="header-subtitle">Manage your files and directories</div>
     </div>
     
-    <div id="upload1" class="tab-content active">
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <button type="submit">Upload</button>
-        </form>
-    </div>
-    <div id="upload2" class="tab-content">
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="files[]" multiple required>
-            <button type="submit">Upload Multiple</button>
-        </form>
-    </div>
-    <div id="upload3" class="tab-content">
-        <form method="post">
-            <input type="text" name="url_path" placeholder="Enter file URL" style="width: 80%" required>
-            <button type="submit" name="url_upload">Download from URL</button>
-        </form>
-    </div>
-    <div id="upload4" class="tab-content">
-        <form method="post">
-            <input type="text" name="dir_name" placeholder="New folder name" required>
-            <button type="submit" name="new_dir">Create Folder</button>
-        </form>
-    </div>
+    <div class="content-wrapper">
+        <div class="breadcrumb">
+            <a href="?dir=<?= urlencode(DIRECTORY_SEPARATOR) ?>">🏠 Root</a> /
+            <?php 
+            $crumbs = breadcrumbLinks($current_dir);
+            foreach ($crumbs as $i => $crumb) {
+                $is_last = ($i === count($crumbs) -1);
+                echo '<a href="?dir=' . urlencode($crumb['path']) . '">' . htmlspecialchars($crumb['name']) . '</a>';
+                if (!$is_last) echo ' / ';
+            }
+            ?>
+        </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Size</th>
-                <th>Permissions</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($dirs as $dir): ?>
-            <tr>
-                <td>📁 <a href="?dir=<?= urlencode($dir['path']) ?>"><?= htmlspecialchars($dir['name']) ?></a></td>
-                <td><?= $dir['size'] ?></td>
-                <td class="<?= is_writable($dir['path']) ? 'perm-ok' : 'perm-no' ?>"><?= $dir['perms'] ?></td>
-                <td class="actions">
-                    <a href="?dir=<?= urlencode($current_dir) ?>&delete=<?= urlencode($dir['name']) ?>" onclick="return confirm('Delete folder <?= htmlspecialchars($dir['name']) ?>?');" class="btn-danger">Delete</a>
-                    <a href="#" onclick="renameItem('<?= htmlspecialchars(addslashes($dir['name'])) ?>');return false;">Rename</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+        <?php if ($message): ?>
+            <div class="message <?= htmlspecialchars($message_type) ?>"><?= htmlspecialchars($message) ?></div>
+        <?php endif; ?>
+        
+        <div class="upload-methods">
+            <div class="tab-links">
+                <button onclick="toggleTab('upload1')" class="tab-link active" id="tabupload1">📤 Upload File</button>
+                <button onclick="toggleTab('upload2')" class="tab-link" id="tabupload2">📦 Multiple Files</button>
+                <button onclick="toggleTab('upload3')" class="tab-link" id="tabupload3">🌐 From URL</button>
+                <button onclick="toggleTab('upload4')" class="tab-link" id="tabupload4">➕ New Folder</button>
+            </div>
+            
+            <div id="upload1" class="tab-content active">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" required>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            <div id="upload2" class="tab-content">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="files[]" multiple required>
+                    <button type="submit">Upload Multiple</button>
+                </form>
+            </div>
+            <div id="upload3" class="tab-content">
+                <form method="post">
+                    <input type="text" name="url_path" placeholder="https://example.com/file.zip" required>
+                    <button type="submit" name="url_upload">Download from URL</button>
+                </form>
+            </div>
+            <div id="upload4" class="tab-content">
+                <form method="post">
+                    <input type="text" name="dir_name" placeholder="my-new-folder" required>
+                    <button type="submit" name="new_dir">Create Folder</button>
+                </form>
+            </div>
+        </div>
 
-        <?php foreach ($files as $file): ?>
-            <tr>
-                <td>📄 <?= htmlspecialchars($file['name']) ?></td>
-                <td><?= $file['size'] ?></td>
-                <td class="<?= is_writable($file['path']) ? 'perm-ok' : 'perm-no' ?>"><?= $file['perms'] ?></td>
-                <td class="actions">
-                    <a href="?dir=<?= urlencode($current_dir) ?>&download=<?= urlencode($file['name']) ?>">Download</a>
-                    <a href="?dir=<?= urlencode($current_dir) ?>&edit=<?= urlencode($file['name']) ?>">Edit</a>
-                    <?php if (strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)) === 'zip'): ?>
-                        | <a href="?dir=<?= urlencode($current_dir) ?>&unzip=<?= urlencode($file['name']) ?>" onclick="return confirm('Unzip <?= htmlspecialchars($file['name']) ?>?');">Unzip</a>
-                    <?php endif; ?>
-                    | <a href="#" onclick="renameItem('<?= htmlspecialchars(addslashes($file['name'])) ?>');return false;">Rename</a>
-                    | <a href="?dir=<?= urlencode($current_dir) ?>&delete=<?= urlencode($file['name']) ?>" onclick="return confirm('Delete file <?= htmlspecialchars($file['name']) ?>?');" class="btn-danger">Delete</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>📋 Name</th>
+                        <th>💾 Size</th>
+                        <th>🔒 Permissions</th>
+                        <th>⚙️ Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dirs as $dir): ?>
+                    <tr>
+                        <td>📁 <a href="?dir=<?= urlencode($dir['path']) ?>"><?= htmlspecialchars($dir['name']) ?></a></td>
+                        <td><?= $dir['size'] ?></td>
+                        <td class="<?= is_writable($dir['path']) ? 'perm-ok' : 'perm-no' ?>"><?= $dir['perms'] ?></td>
+                        <td>
+                            <div class="actions">
+                                <a href="#" onclick="renameItem('<?= htmlspecialchars(addslashes($dir['name'])) ?>');return false;">Rename</a>
+                                <a href="?dir=<?= urlencode($current_dir) ?>&delete=<?= urlencode($dir['name']) ?>" onclick="return confirm('Delete folder <?= htmlspecialchars($dir['name']) ?>?');" class="btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+                <?php foreach ($files as $file): ?>
+                    <tr>
+                        <td>📄 <?= htmlspecialchars($file['name']) ?></td>
+                        <td><?= $file['size'] ?></td>
+                        <td class="<?= is_writable($file['path']) ? 'perm-ok' : 'perm-no' ?>"><?= $file['perms'] ?></td>
+                        <td>
+                            <div class="actions">
+                                <a href="?dir=<?= urlencode($current_dir) ?>&download=<?= urlencode($file['name']) ?>">Download</a>
+                                <a href="?dir=<?= urlencode($current_dir) ?>&edit=<?= urlencode($file['name']) ?>">Edit</a>
+                                <?php if (strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)) === 'zip'): ?>
+                                    <a href="?dir=<?= urlencode($current_dir) ?>&unzip=<?= urlencode($file['name']) ?>" onclick="return confirm('Unzip <?= htmlspecialchars($file['name']) ?>?');">Unzip</a>
+                                <?php endif; ?>
+                                <a href="#" onclick="renameItem('<?= htmlspecialchars(addslashes($file['name'])) ?>');return false;">Rename</a>
+                                <a href="?dir=<?= urlencode($current_dir) ?>&delete=<?= urlencode($file['name']) ?>" onclick="return confirm('Delete file <?= htmlspecialchars($file['name']) ?>?');" class="btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
 <?php
 // EDIT FILE SECTION with CodeMirror smart editor
@@ -466,14 +776,17 @@ if (isset($_GET['edit'])):
         ];
         $mode = isset($modes[$ext]) ? $modes[$ext] : 'null';
         ?>
-        <hr>
-        <h2>Editing: <?= $filename ?></h2>
-        <form method="post">
-            <input type="hidden" name="file_path" value="<?= htmlspecialchars($edit_file) ?>">
-            <textarea id="code" name="content"><?= $content ?></textarea><br>
-            <button type="submit" name="save" class="btn btn-success">Save</button>
-            <a href="?dir=<?= urlencode($current_dir) ?>" class="btn btn-secondary">Cancel</a>
-        </form>
+        <div class="edit-section">
+            <h2>✏️ Editing: <?= $filename ?></h2>
+            <form method="post">
+                <input type="hidden" name="file_path" value="<?= htmlspecialchars($edit_file) ?>">
+                <textarea id="code" name="content"><?= $content ?></textarea>
+                <div class="form-actions">
+                    <button type="submit" name="save" class="btn btn-success">💾 Save Changes</button>
+                    <a href="?dir=<?= urlencode($current_dir) ?>" class="btn btn-secondary">✖️ Cancel</a>
+                </div>
+            </form>
+        </div>
 
         <script>
             var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -488,7 +801,7 @@ if (isset($_GET['edit'])):
             });
             // Resize editor height on window resize
             function resizeEditor() {
-                var height = window.innerHeight * 0.7;
+                var height = window.innerHeight * 0.6;
                 editor.setSize(null, height);
             }
             window.addEventListener('resize', resizeEditor);
@@ -496,11 +809,12 @@ if (isset($_GET['edit'])):
         </script>
         <?php
     else:
-        echo '<p><strong>Cannot edit this file or file does not exist.</strong></p>';
+        echo '<div class="message error">Cannot edit this file or file does not exist.</div>';
     endif;
 endif;
 ?>
 
+    </div>
 </div>
 
 <script>
